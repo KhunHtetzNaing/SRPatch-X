@@ -47,7 +47,7 @@ assumes no liability for misuse.
 
 ## Downloads
 
-Download the latest version from the [Releases](releases) page.
+Download the latest version from the [Releases](https://github.com/KhunHtetzNaing/SRPatch-X/releases) page.
 
 <div style="overflow-x: auto; white-space: nowrap;">
   <img src="screenshots/01.png" height="500">
