@@ -23,3 +23,6 @@
 # This is generated automatically by the Android Gradle plugin.
 -dontwarn com.google.auto.value.AutoValue$Builder
 -dontwarn com.google.auto.value.AutoValue
+
+# ApkSig
+-keep class com.android.apksig.** { *; }

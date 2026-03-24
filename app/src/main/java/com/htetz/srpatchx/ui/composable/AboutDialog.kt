@@ -34,7 +34,7 @@ fun AboutDialog(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
                 .navigationBarsPadding(),
-            colors = ListItemDefaults.colors().copy(
+            colors = ListItemDefaults.colors(
                 containerColor = Color.Transparent
             ),
             headlineContent = {
