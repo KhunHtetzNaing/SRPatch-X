@@ -1,5 +1,7 @@
 package com.htetz.core
 
+import java.io.IOException
+
 /**
  * 核心模块内部抛出的 Patch 相关异常。
  *
