@@ -50,7 +50,7 @@
     <string name="sig_more_hook_desc">额外的 Hook 技术</string>
     <string name="sig_svc_hook_title">SVC Hook</string>
     <string name="sig_svc_hook_desc">系统调用级别的防护</string>
-    <string name="level_prefix">等级 %1$d</string>
+    <string name="level_prefix">Lv.%1$d</string>
 
     <!-- Relative date strings -->
     <string name="time_just_now">刚刚</string>
