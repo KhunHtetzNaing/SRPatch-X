@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SRPatch X</string>
 
-    <string name="output_name_format">%s_SRPatchX.%s</string>
+    <string name="output_name_format">%1$s_SRPatchX.%2$s</string>
     <string name="permission_storage_title">Storage Access</string>
     <string name="permission_storage_msg">This permission is required to allow the app to access APK files stored on your device. Without this permission, the app will not be able to locate or process APK files.</string>
     <string name="btn_grant">Grant</string>
@@ -24,5 +24,64 @@
     <string name="deleted_msg">Successfully deleted</string>
     <string name="delete_confirm_btn">Delete</string>
     <string name="delete_confirm_title">Permanently delete?</string>
-    <string name="delete_confirm_message">You are attempting to delete **%s**. Please be careful as this action is **permanent** and cannot be **undone**.</string>
+    <string name="delete_confirm_message">You are attempting to delete **%1$s**. Please be careful as this action is **permanent** and cannot be **undone**.</string>
+
+    <!-- Patch sheet section headers -->
+    <string name="section_pms_proxy_method">PMS Proxy Method</string>
+    <string name="section_signature_strength">Signature Strength</string>
+
+    <!-- Path redirection -->
+    <string name="badge_optional">Optional</string>
+    <string name="title_path_redirection">Path Redirection</string>
+    <string name="desc_path_redirection">Use original apk to bypass</string>
+
+    <!-- PMS Proxy Method options (title + description) -->
+    <string name="pms_binder_proxy_title">IBINDER_PROXY</string>
+    <string name="pms_binder_proxy_desc">Proxy through Binder interface</string>
+    <string name="pms_creator_proxy_title">CREATOR_PROXY</string>
+    <string name="pms_creator_proxy_desc">Proxy through Parcelable Creator</string>
+
+    <!-- Signature Strength options (title + description) -->
+    <string name="sig_pms_hook_title">PMS Hook</string>
+    <string name="sig_pms_hook_desc">Basic Package Manager protection</string>
+    <string name="sig_io_pms_hook_title">IO Hook + PMS Hook</string>
+    <string name="sig_io_pms_hook_desc">File system and package manager</string>
+    <string name="sig_more_hook_title">More Hook</string>
+    <string name="sig_more_hook_desc">Additional hooking techniques</string>
+    <string name="sig_svc_hook_title">SVC Hook</string>
+    <string name="sig_svc_hook_desc">System call level protection</string>
+    <string name="level_prefix">Lv.%1$d</string>
+
+    <!-- Relative date strings -->
+    <string name="time_just_now">Just now</string>
+    <string name="time_yesterday">Yesterday</string>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%1$d minute ago</item>
+        <item quantity="other">%1$d minutes ago</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%1$d hour ago</item>
+        <item quantity="other">%1$d hours ago</item>
+    </plurals>
+
+    <!-- File size units -->
+    <string name="size_zero">0 B</string>
+    <string name="size_format">%1$.2f %2$s</string>
+    <string name="unit_byte">B</string>
+    <string name="unit_kb">KB</string>
+    <string name="unit_mb">MB</string>
+    <string name="unit_gb">GB</string>
+    <string name="unit_tb">TB</string>
+    <string name="unit_pb">PB</string>
+    <string name="unit_eb">EB</string>
+
+    <!-- Patching error messages (keep in sync with core module PatchException keys) -->
+    <string name="error_apk_not_signed">Source APK is not signed</string>
+    <string name="error_apk_invalid">Invalid APK: missing AndroidManifest.xml</string>
+    <string name="error_so_patch_load_failed">Failed to load .so patch</string>
+    <string name="error_dex_patch_load_failed">Failed to load dex patch</string>
+    <string name="error_apk_signer_failed">Failed to register APK signer</string>
+    <string name="error_manifest_package_missing">Package attribute not found in manifest</string>
+    <string name="error_manifest_tag_missing">Manifest tag not found in AndroidManifest.xml</string>
+    <string name="error_application_tag_missing">Application tag not found in manifest</string>
 </resources>

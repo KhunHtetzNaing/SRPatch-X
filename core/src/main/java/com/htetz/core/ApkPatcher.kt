@@ -63,13 +63,13 @@ class ApkPatcher(
     private fun extractSignature(): String {
         return RandomAccessFile(sourceApk, "r").use { file ->
             SignerCompat.findAnySign(DataSources.asDataSource(file))
-                ?: throw IOException("Source APK is not signed")
+                ?: throw PatchException(PatchException.APK_NOT_SIGNED)
         }
     }
 
     private fun processManifest(srcFile: ZFile, dstFile: ZFile): ManifestResult {
         val srcManifest = srcFile.get(ApkPatcherConfig.MANIFEST_PATH)
-            ?: throw IOException("Invalid APK: missing AndroidManifest.xml")
+            ?: throw PatchException(PatchException.APK_INVALID)
 
         val manifestEditor = srcManifest.open().use { stream ->
             ManifestEditor(stream.readBytes())
@@ -148,7 +148,7 @@ class ApkPatcher(
 
         // Add native library (uncompressed for proper alignment)
         val nativeLibrary = javaClass.getResourceAsStream("/libPatch")
-            ?: throw IOException("Failed to load .so patch")
+            ?: throw PatchException(PatchException.SO_PATCH_LOAD_FAILED)
         dstFile.add(
             ApkPatcherConfig.LIB_PATH,
             nativeLibrary,
@@ -157,7 +157,7 @@ class ApkPatcher(
 
         // Add path DEX
         val patchDex = javaClass.getResourceAsStream("/dexPatch")
-            ?: throw IOException("Failed to load dex patch")
+            ?: throw PatchException(PatchException.DEX_PATCH_LOAD_FAILED)
 
         dstFile.add(
             findNextClassesName(dstFile),
@@ -175,7 +175,7 @@ class ApkPatcher(
             originalApplicationName = manifestResult.originalAppClass,
             packageName = manifestResult.packageName,
             pathRedirectionEnabled = options.pathRedirectionEnabled,
-            pmsProxyMethod = options.pmsProxyMethod.title,
+            pmsProxyMethod = options.pmsProxyMethod.key,
             signature = apkSignature,
             signatureStrength = options.signatureStrength.level
         )
@@ -263,7 +263,7 @@ class ApkPatcher(
 
             SigningExtension(signingOptions).register(zFile)
         } catch (e: Exception) {
-            throw IOException("Failed to register APK signer", e)
+            throw PatchException(PatchException.APK_SIGNER_FAILED, e)
         }
     }
 }

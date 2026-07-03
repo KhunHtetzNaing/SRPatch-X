@@ -1,0 +1,85 @@
+<resources>
+    <string name="app_name">SRPatch X</string>
+
+    <string name="output_name_format">%1$s_SRPatchX.%2$s</string>
+    <string name="permission_storage_title">存储访问权限</string>
+    <string name="permission_storage_msg">此权限用于允许应用访问设备上的 APK 文件。没有该权限,应用将无法查找或处理 APK 文件。</string>
+    <string name="btn_grant">授权</string>
+    <string name="btn_cancel">取消</string>
+    <string name="files_empty">这里什么也没有</string>
+    <string name="btn_apply">应用</string>
+    <string name="btn_patch">Patch</string>
+    <string name="btn_install">安装</string>
+    <string name="apk_info_desc"><![CDATA[minSdkVersion: %1$d\ntargetSdkVersion: %2$d\ncompileSdkVersion: %3$d\npackage: %4$s]]></string>
+    <string name="label_patched">已 Patch</string>
+
+    <string name="apk_no_sign_title">验证失败</string>
+    <string name="apk_no_sign_msg">无法读取 APK 签名,该 APK 文件可能已损坏或无效。</string>
+    <string name="apk_sign_mismatch_title">签名不一致</string>
+    <string name="apk_sign_mismatch_msg">APK 的签名信息与已安装应用不一致,是否需要先卸载已安装的应用?</string>
+    <string name="btn_uninstall">卸载</string>
+    <string name="title_error">错误</string>
+    <string name="btn_close">关闭</string>
+
+    <string name="deleted_msg">已成功删除</string>
+    <string name="delete_confirm_btn">删除</string>
+    <string name="delete_confirm_title">永久删除?</string>
+    <string name="delete_confirm_message">你正在尝试删除 **%1$s**,此操作**不可撤销**,请谨慎操作。</string>
+
+    <!-- Patch sheet section headers -->
+    <string name="section_pms_proxy_method">PMS 代理方式</string>
+    <string name="section_signature_strength">签名防护强度</string>
+
+    <!-- Path redirection -->
+    <string name="badge_optional">可选</string>
+    <string name="title_path_redirection">路径重定向</string>
+    <string name="desc_path_redirection">使用原始 APK 来绕过验证</string>
+
+    <!-- PMS Proxy Method options -->
+    <string name="pms_binder_proxy_title">IBINDER 代理</string>
+    <string name="pms_binder_proxy_desc">通过 Binder 接口进行代理</string>
+    <string name="pms_creator_proxy_title">CREATOR 代理</string>
+    <string name="pms_creator_proxy_desc">通过 Parcelable Creator 进行代理</string>
+
+    <!-- Signature Strength options -->
+    <string name="sig_pms_hook_title">PMS Hook</string>
+    <string name="sig_pms_hook_desc">基础包管理器防护</string>
+    <string name="sig_io_pms_hook_title">IO Hook + PMS Hook</string>
+    <string name="sig_io_pms_hook_desc">文件系统与包管理器双重防护</string>
+    <string name="sig_more_hook_title">更多 Hook</string>
+    <string name="sig_more_hook_desc">额外的 Hook 技术</string>
+    <string name="sig_svc_hook_title">SVC Hook</string>
+    <string name="sig_svc_hook_desc">系统调用级别的防护</string>
+    <string name="level_prefix">Lv.%1$d</string>
+
+    <!-- Relative date strings -->
+    <string name="time_just_now">刚刚</string>
+    <string name="time_yesterday">昨天</string>
+    <plurals name="time_minutes_ago">
+        <item quantity="other">%1$d 分钟前</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="other">%1$d 小时前</item>
+    </plurals>
+
+    <!-- File size units -->
+    <string name="size_zero">0 B</string>
+    <string name="size_format">%1$.2f %2$s</string>
+    <string name="unit_byte">B</string>
+    <string name="unit_kb">KB</string>
+    <string name="unit_mb">MB</string>
+    <string name="unit_gb">GB</string>
+    <string name="unit_tb">TB</string>
+    <string name="unit_pb">PB</string>
+    <string name="unit_eb">EB</string>
+
+    <!-- Patching error messages (keep in sync with core module PatchException keys) -->
+    <string name="error_apk_not_signed">该源 APK 未签名</string>
+    <string name="error_apk_invalid">APK 无效:缺失 AndroidManifest.xml</string>
+    <string name="error_so_patch_load_failed">加载 .so patch 失败</string>
+    <string name="error_dex_patch_load_failed">加载 dex patch 失败</string>
+    <string name="error_apk_signer_failed">注册 APK 签名器失败</string>
+    <string name="error_manifest_package_missing">在 manifest 中未找到 package 属性</string>
+    <string name="error_manifest_tag_missing">AndroidManifest.xml 中缺少 manifest 标签</string>
+    <string name="error_application_tag_missing">manifest 中缺少 application 标签</string>
+</resources>

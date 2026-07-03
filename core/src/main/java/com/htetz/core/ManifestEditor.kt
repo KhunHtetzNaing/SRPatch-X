@@ -3,7 +3,6 @@ package com.htetz.core
 import pxb.android.axml.Axml
 import pxb.android.axml.AxmlReader
 import pxb.android.axml.AxmlWriter
-import java.io.IOException
 
 internal data class ManifestResult(
     val packageName: String,
@@ -26,7 +25,7 @@ internal class ManifestEditor(manifestBytes: ByteArray) {
         return manifest.attrs
             .find { it.name == "package" }
             ?.value as? String
-            ?: throw IOException("Package attribute not found in manifest")
+            ?: throw PatchException(PatchException.MANIFEST_PACKAGE_MISSING)
     }
 
     fun getApplicationName(): String? {
@@ -70,12 +69,12 @@ internal class ManifestEditor(manifestBytes: ByteArray) {
 
     private fun findManifestNode(): Axml.Node {
         return aXML.firsts.find { it.name == "manifest" }
-            ?: throw IOException("Manifest tag not found in AndroidManifest.xml")
+            ?: throw PatchException(PatchException.MANIFEST_TAG_MISSING)
     }
 
     private fun findApplicationNode(): Axml.Node {
         return manifest.children.find { it.name == "application" }
-            ?: throw IOException("Application tag not found in manifest")
+            ?: throw PatchException(PatchException.APPLICATION_TAG_MISSING)
     }
 
     private fun getApplicationNameAttr(): Axml.Node.Attr? {

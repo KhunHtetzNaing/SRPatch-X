@@ -13,6 +13,7 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
@@ -20,7 +21,6 @@ import com.htetz.srpatchx.domain.toReadableSize
 import com.htetz.srpatchx.domain.toReadableTime
 import com.htetz.srpatchx.models.FileItem
 import java.io.File
-
 @Composable
 fun FileItemCard(
     item: FileItem,
@@ -62,7 +62,8 @@ private fun FolderItem(
                 Text(text = file.name, overflow = TextOverflow.MiddleEllipsis, maxLines = 1)
             },
             supportingContent = {
-                Text(file.lastModified().toReadableTime())
+                val ctx = LocalContext.current
+                Text(file.lastModified().toReadableTime(ctx))
             }
         )
     }
@@ -104,8 +105,9 @@ private fun FileItem(
                 Text(text = file.name, overflow = TextOverflow.MiddleEllipsis, maxLines = 1)
             },
             supportingContent = {
+                val ctx = LocalContext.current
                 Text(
-                    "${file.length().toReadableSize()}, ${file.lastModified().toReadableTime()}"
+                    "${file.length().toReadableSize(ctx)}, ${file.lastModified().toReadableTime(ctx)}"
                 )
             }
         )

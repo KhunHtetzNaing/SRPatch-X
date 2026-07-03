@@ -1,5 +1,6 @@
 package com.htetz.srpatchx.utils
 
+import android.content.Context
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -17,32 +18,43 @@ object DateUtils {
     private const val DAY_IN_MILLIS = 24 * HOUR_IN_MILLIS
     private const val WEEK_IN_MILLIS = 7 * DAY_IN_MILLIS
 
-    fun formatRelativeDate(date: Long) = formatRelativeDate(Date(date))
-    fun formatRelativeDate(date: Date): String {
+    fun Context.formatRelativeDate(date: Long): String = formatRelativeDate(Date(date))
+
+    fun Context.formatRelativeDate(date: Date): String {
         val now = System.currentTimeMillis()
         val fileTime = date.time
         val diffMillis = now - fileTime
 
+        val resources = this.resources
         // Early return for recent times (most common case)
         return when {
-            diffMillis < MINUTE_IN_MILLIS -> "Just now"
-            diffMillis < HOUR_IN_MILLIS -> formatMinutesAgo(diffMillis)
-            diffMillis < DAY_IN_MILLIS -> formatHoursAgo(diffMillis)
+            diffMillis < MINUTE_IN_MILLIS ->
+                resources.getString(com.htetz.srpatchx.R.string.time_just_now)
+
+            diffMillis < HOUR_IN_MILLIS -> {
+                val minutes = (diffMillis / MINUTE_IN_MILLIS).toInt()
+                resources.getQuantityString(
+                    com.htetz.srpatchx.R.plurals.time_minutes_ago,
+                    minutes,
+                    minutes,
+                )
+            }
+
+            diffMillis < DAY_IN_MILLIS -> {
+                val hours = (diffMillis / HOUR_IN_MILLIS).toInt()
+                resources.getQuantityString(
+                    com.htetz.srpatchx.R.plurals.time_hours_ago,
+                    hours,
+                    hours,
+                )
+            }
+
             else -> formatOlderDate(date, fileTime, diffMillis)
         }
     }
 
-    private fun formatMinutesAgo(diffMillis: Long): String {
-        val minutes = (diffMillis / MINUTE_IN_MILLIS).toInt()
-        return "$minutes minute${if (minutes == 1) "" else "s"} ago"
-    }
-
-    private fun formatHoursAgo(diffMillis: Long): String {
-        val hours = (diffMillis / HOUR_IN_MILLIS).toInt()
-        return "$hours hour${if (hours == 1) "" else "s"} ago"
-    }
-
-    private fun formatOlderDate(date: Date, fileTime: Long, diffMillis: Long): String {
+    private fun Context.formatOlderDate(date: Date, fileTime: Long, diffMillis: Long): String {
+        val resources = this.resources
         val nowCal = Calendar.getInstance()
         val dateCal = Calendar.getInstance().apply { timeInMillis = fileTime }
 
@@ -53,7 +65,8 @@ object DateUtils {
 
         return when {
             // Yesterday (same year, day difference of 1)
-            isYesterday(nowYear, fileYear, nowDay, fileDay) -> "Yesterday"
+            isYesterday(nowYear, fileYear, nowDay, fileDay) ->
+                resources.getString(com.htetz.srpatchx.R.string.time_yesterday)
 
             // This week (same year and week)
             isThisWeek(nowCal, dateCal, nowYear, fileYear, diffMillis) ->
@@ -75,7 +88,7 @@ object DateUtils {
         dateCal: Calendar,
         nowYear: Int,
         fileYear: Int,
-        diffMillis: Long
+        diffMillis: Long,
     ): Boolean =
         nowYear == fileYear &&
                 nowCal.get(Calendar.WEEK_OF_YEAR) == dateCal.get(Calendar.WEEK_OF_YEAR) &&

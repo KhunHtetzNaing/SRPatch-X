@@ -50,6 +50,8 @@ import com.htetz.core.KeystoreConfig
 import com.htetz.core.PMSProxyMethod
 import com.htetz.core.SignatureStrength
 import com.htetz.srpatchx.R
+import com.htetz.srpatchx.domain.descriptionRes
+import com.htetz.srpatchx.domain.titleRes
 import com.htetz.srpatchx.models.FileItem
 import com.htetz.srpatchx.ui.composable.ModifierExtensions.listCardContainerShape
 import com.htetz.srpatchx.ui.composable.ModifierExtensions.listCardItemShape
@@ -72,7 +74,7 @@ fun ApkPatchSheet(
                 pathRedirectionEnabled = false,
                 pmsProxyMethod = PMSProxyMethod.BINDER_PROXY,
                 signatureStrength = SignatureStrength.SVC_HOOK,
-                keystoreConfig = KeystoreConfig.DEFAULT
+                keystoreConfig = KeystoreConfig.DEFAULT,
             )
         )
     }
@@ -104,7 +106,7 @@ private fun PatchOptionsContent(
     onOptionsChanged: (ApkPatchOptions) -> Unit,
     onPatch: () -> Unit,
     onDismiss: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -120,31 +122,31 @@ private fun PatchOptionsContent(
             onEnabledChange = { onOptionsChanged(patchOptions.copy(pathRedirectionEnabled = it)) },
             modifier = Modifier
                 .padding(vertical = 16.dp)
-                .listCardContainerShape()
+                .listCardContainerShape(),
         )
 
         // PMS Proxy Method Section
         Text(
-            text = "PMS Proxy Method",
+            text = stringResource(R.string.section_pms_proxy_method),
             style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(vertical = 8.dp)
+            modifier = Modifier.padding(vertical = 8.dp),
         )
 
         PMSProxyMethodOptions(
             pmsProxy = patchOptions.pmsProxyMethod,
-            onMethodChange = { onOptionsChanged(patchOptions.copy(pmsProxyMethod = it)) }
+            onMethodChange = { onOptionsChanged(patchOptions.copy(pmsProxyMethod = it)) },
         )
 
         // Signature Strength Section
         Text(
-            text = "Signature Strength",
+            text = stringResource(R.string.section_signature_strength),
             style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(vertical = 8.dp)
+            modifier = Modifier.padding(vertical = 8.dp),
         )
 
         SignatureStrengthOptions(
             strength = patchOptions.signatureStrength,
-            onMethodChange = { onOptionsChanged(patchOptions.copy(signatureStrength = it)) }
+            onMethodChange = { onOptionsChanged(patchOptions.copy(signatureStrength = it)) },
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -152,7 +154,7 @@ private fun PatchOptionsContent(
         // Action Buttons
         PatchActions(
             onPatch = onPatch,
-            onDismiss = onDismiss
+            onDismiss = onDismiss,
         )
     }
 }
@@ -161,15 +163,15 @@ private fun PatchOptionsContent(
 private fun PatchActions(
     onPatch: () -> Unit,
     onDismiss: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         OutlinedButton(
             onClick = onDismiss,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         ) {
             Icon(Icons.TwoTone.Cancel, null)
             Spacer(Modifier.size(ButtonDefaults.IconSpacing))
@@ -177,7 +179,7 @@ private fun PatchActions(
         }
         FilledTonalButton(
             onClick = onPatch,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         ) {
             Icon(Icons.TwoTone.Check, null)
             Spacer(Modifier.size(ButtonDefaults.IconSpacing))
@@ -189,34 +191,34 @@ private fun PatchActions(
 @Composable
 private fun PatchHeader(
     apkItem: FileItem.Apk,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         AsyncImage(
             model = apkItem,
             contentDescription = null,
             modifier = Modifier
                 .size(40.dp)
-                .clip(MaterialTheme.shapes.medium)
+                .clip(MaterialTheme.shapes.medium),
         )
         Column {
             Text(
                 text = apkItem.appName,
                 style = MaterialTheme.typography.titleLarge,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
             Text(
                 text = apkItem.packageName,
                 style = MaterialTheme.typography.labelMedium.copy(
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 ),
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
         }
     }
@@ -226,42 +228,40 @@ private fun PatchHeader(
 private fun PathRedirectionSwitch(
     enabled: Boolean,
     onEnabledChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     ListItem(
         modifier = modifier
             .selectable(
                 selected = enabled,
-                onClick = {
-                    onEnabledChange(!enabled)
-                },
-                role = Role.Switch
+                onClick = { onEnabledChange(!enabled) },
+                role = Role.Switch,
             ),
         headlineContent = {
             BadgedBox(
                 badge = {
                     Badge(
                         containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier.padding(start = 16.dp),
                     ) {
-                        Text("Optional")
+                        Text(stringResource(R.string.badge_optional))
                     }
-                }
+                },
             ) {
-                Text("Path Redirection")
+                Text(stringResource(R.string.title_path_redirection))
             }
         },
-        supportingContent = { Text("Use original apk to bypass") },
+        supportingContent = { Text(stringResource(R.string.desc_path_redirection)) },
         leadingContent = {
             Icon(
                 imageVector = Icons.TwoTone.Cable,
-                contentDescription = null
+                contentDescription = null,
             )
         },
         trailingContent = {
             Switch(
                 checked = enabled,
-                onCheckedChange = null
+                onCheckedChange = null,
             )
         },
         colors = ListItemDefaults.colors(MaterialTheme.colorScheme.secondaryContainer),
@@ -272,25 +272,23 @@ private fun PathRedirectionSwitch(
 private fun PMSProxyMethodOptions(
     pmsProxy: PMSProxyMethod,
     onMethodChange: (PMSProxyMethod) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.listCardContainerShape(),
-        verticalArrangement = Arrangement.spacedBy(2.dp)
+        verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         PMSProxyMethod.entries.forEach { method ->
             RadioListItem(
-                headlineContent = { Text(method.title) },
+                headlineContent = { Text(stringResource(method.titleRes)) },
                 selected = method == pmsProxy,
                 modifier = Modifier
                     .fillMaxWidth()
                     .listCardItemShape(),
                 supportingContent = {
-                    Text(method.description)
+                    Text(stringResource(method.descriptionRes))
                 },
-                onClick = {
-                    onMethodChange(method)
-                }
+                onClick = { onMethodChange(method) },
             )
         }
     }
@@ -300,23 +298,23 @@ private fun PMSProxyMethodOptions(
 private fun SignatureStrengthOptions(
     strength: SignatureStrength,
     onMethodChange: (SignatureStrength) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.listCardContainerShape(),
-        verticalArrangement = Arrangement.spacedBy(2.dp)
+        verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         SignatureStrength.entries.forEach { item ->
             RadioListItem(
                 headlineContent = {
-                    Text(item.title)
+                    Text(stringResource(item.titleRes))
                 },
                 selected = item == strength,
                 modifier = Modifier
                     .fillMaxWidth()
                     .listCardItemShape(),
                 supportingContent = {
-                    Text(item.description)
+                    Text(stringResource(item.descriptionRes))
                 },
                 trailingContent = {
                     Badge(
@@ -325,14 +323,12 @@ private fun SignatureStrengthOptions(
                             2 -> MaterialTheme.colorScheme.secondaryContainer
                             3 -> MaterialTheme.colorScheme.tertiaryContainer
                             else -> MaterialTheme.colorScheme.errorContainer
-                        }
+                        },
                     ) {
-                        Text("Lv.${item.level}")
+                        Text(stringResource(R.string.level_prefix, item.level))
                     }
                 },
-                onClick = {
-                    onMethodChange(item)
-                }
+                onClick = { onMethodChange(item) },
             )
         }
     }
@@ -354,7 +350,7 @@ private fun RadioListItem(
         leadingContent = {
             RadioButton(
                 selected = selected,
-                onClick = null
+                onClick = null,
             )
         },
         supportingContent = supportingContent,
@@ -363,10 +359,10 @@ private fun RadioListItem(
         modifier = modifier.selectable(
             selected = selected,
             onClick = onClick,
-            role = Role.RadioButton
+            role = Role.RadioButton,
         ),
         colors = ListItemDefaults.colors(
-            containerColor = containerColor
-        )
+            containerColor = containerColor,
+        ),
     )
 }
